@@ -1,0 +1,104 @@
+#menuBtn{
+    background: none;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    position: absolute;
+    top: 35px;
+    right: 35px;
+    z-index: 3;
+    @include easeOut(0.4s);
+
+    .btnLine{
+        width: 28px;
+        height: 3px;
+        background: set-text-color($primary-color);
+        margin-bottom: 5px;
+        @include easeOut(0.4s);
+    }
+
+    &.close{
+        transform: rotate(90deg);
+
+        .btnLine{
+            &:nth-child(1){
+                transform: rotate(45deg) translate(11px, 11px);
+            }
+            &:nth-child(2){
+                opacity: 0;
+            }
+            &:nth-child(3){
+                transform: rotate(-45deg);
+            }
+        }
+    }
+}
+
+#leftSlide, #rightSlide {
+    opacity: 0.9;
+    visibility: hidden;
+    width: 50%;
+    height: 100vh;
+    float: left;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    @include easeOut(0.4s);
+
+    &.show{
+        visibility: visible;
+        transform: translateY(0);
+    }
+
+}
+
+#leftSlide{
+    background: $primary-color;
+    transform: translateY(100%);
+
+    img{
+        border-radius: 50%;
+        border: 3px solid $secondary-color;
+    }
+}
+
+#rightSlide{
+    background-color: darken($primary-color, 5);
+    transform: translateY(-100%);
+
+    ul{
+        display: flex;
+        flex-flow: column wrap;
+        justify-content: center;
+        align-items: center;
+    }
+
+    li{
+        transform: translateX(100vw);
+        @include easeOut(0.5s);
+        font-size: 2rem;
+        text-transform: uppercase;
+        padding: 1rem 0;
+        font-weight: 300;
+
+        &.current > a{
+            color: $secondary-color;
+        }
+
+        a:hover{
+            color: $secondary-color;
+            @include easeOut(0.4s);
+        }
+    }
+
+    &.show li{
+        transform: translateX(0);
+
+        @each $index in (1,2,3,4){
+            &:nth-child(#{$index}){
+                transition-delay: $index * 0.1s - 0.1;
+            }
+        }
+    }
+}
+
